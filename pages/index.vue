@@ -4,7 +4,7 @@
   >
     <div class="w-64 bg-slate-600 rounded-md text-slate-50 text-center">
       <button class="bg-green-600 w-full py-2 rounded-md">
-        <NuxtLink to="/game">Start</NuxtLink>
+        <NuxtLink to="/game" class=" capitalize">Start {{ ` ${store.mode} dalam ${store.time / 1000} detik terlalu ez`}}</NuxtLink>
       </button>
       <div class="difficulty">
         <b>Difficulty:</b>

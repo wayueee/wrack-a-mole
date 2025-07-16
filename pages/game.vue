@@ -1,5 +1,28 @@
 <template>
   <div class="bg-slate-500 min-h-screen text-white">
+    <div>
+      <div class="w-full h-16 shadow-md flex justify-evenly items-center">
+        <button
+          class="shadow-md text-slate-100 px-2 py-1 mx-1 my-2 hover:bg-slate-700"
+        >
+          <nuxt-link to="/">Back to Home</nuxt-link>
+        </button>
+        <div class="score flex items-center justify-evenly flex-1">
+          <span
+            ><button
+              @click="restartGames"
+              class="shadow-md text-slate-100 px-2 py-1 mx-1 my-2 hover:bg-slate-700"
+            >
+              Retry
+            </button></span
+          >
+          <span class="">Score: {{ score }}</span>
+          <span> <StopWatch  :time="store.time" :restartTime="start"/> </span>
+          <span>{{ store.mode }}</span>
+        </div>
+      </div>
+    </div>
+
     <div class="game">
       <div
         class="hole"
@@ -8,9 +31,13 @@
         :class="index + 1 === hole ? 'up' : ''"
       >
         <img
-          :src="!moleBonked ? '/mole.svg' : '/mole-no-color.svg'"
+          :src="
+            !moleBonked
+              ? '/wrack-a-mole/mole.svg'
+              : '/wrack-a-mole/mole-no-color.svg'
+          "
           alt="mole"
-          class="mole pl-5"
+          class="mole  w-[100px] md:w-[200px] pl-5 md:pl-0"
           v-if="index + 1 === hole"
           @click="bonk"
         />
@@ -33,6 +60,7 @@ const peepTimeout = ref(null);
 const moleBonked = ref(false);
 
 const peep = () => {
+  clearTimeout(peepTimeout);
   let changeTime = randomTime(
     store.difficulty.MIN_RANDOM_TIME,
     store.difficulty.MAX_RANDOM_TIME
@@ -69,6 +97,18 @@ const startGame = () => {
   }, gameTime);
 };
 
+const restartGames = () => {
+  clearTimeout(peepTimeout.value);
+  clearTimeout(startTimeout.value);
+  start.value = false;
+  hole.value = 0;
+  moleBonked.value = false;
+
+  setTimeout(() => {
+    startGame();
+  }, 100);
+};
+
 const bonk = (event) => {
   if (!event.isTrusted) return;
   score.value++;
@@ -100,7 +140,7 @@ onMounted(() => {
 }
 .hole::after {
   display: inline-block;
-  background: url("bush.svg") bottom center no-repeat;
+  background: url("/wrack-a-mole/bush.svg") bottom center no-repeat;
   background-size: cover;
   content: "";
   width: 100%;

@@ -7,17 +7,22 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@pinia/nuxt": "^0.11.1",
-    "nuxt": "^3.17.5",
-    "vue": "^3.5.16",
+    "nuxt": "^3.17.6",
+    "pinia": "^3.0.3",
+    "vue": "^3.5.17",
     "vue-router": "^4.5.1"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.21",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.5.6",
-    "tailwindcss": "^3.4.17"
+    "tailwindcss": "^3.4.17",
+    "pinia": "^2.x.x",
+    "@pinia/nuxt": "^0.x.x"
   }
 }
